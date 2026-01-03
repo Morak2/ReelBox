@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    
+    <h1>Add Movie to Database</h1>
+    
+    <form id="addMovieForm">
+        <div class="form-group">
+            <label>Movie Title</label>
+            <input type="text" id="title" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Poster Image URL</label>
+            <input type="url" id="poster" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Movie Video URL</label>
+            <input type="url" id="videoUrl" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" rows="4" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Rating (0-10)</label>
+            <input type="number" id="rating" min="0" max="10" step="0.1" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Genre</label>
+            <input type="text" id="genre" placeholder="e.g., Action, Comedy" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Year</label>
+            <input type="number" id="year" min="1900" max="2030" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Duration</label>
+            <input type="text" id="duration" placeholder="e.g., 2h 15min" required>
+        </div>
+        
+        <button type="submit">Add Movie</button>
+    </form>
+    
+    <div class="success" id="successMessage">Movie added successfully!</div>
+
+</body>
+<script type="module" src="./admin.js"></script>
+</html>

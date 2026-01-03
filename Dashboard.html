@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="./Dashboard.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">ReelBox</div>
+
+            <div id="errorMessage"
+                style="color: #ff6b6b; background: rgba(255, 107, 107, 0.15); padding: 12px; border-radius: 8px; margin-bottom: 15px; display: none; border: 1px solid #ff6b6b;">
+            </div>
+
+    <ul class="nav-links">
+    <li><a href="#" data-section="home" class="active">Home</a></li>
+    <li><a href="#" data-section="trending">Trending</a></li>
+    <li><a href="#" data-section="watchlist">My Watchlist</a></li>
+    <li><a href="#" data-section="playlists">My Playlists</a></li>
+</ul>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search movies...">
+                </div>
+                <a href="#Subscribe" class="cta-button">Subscribe</a>
+                
+                <!-- Profile Icon with Dropdown -->
+                <div style="position: relative;">
+                    <div class="profile-icon" title="Profile" id="profileIcon">?</div>
+                    
+                    <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 55px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); min-width: 200px; z-index: 1000;">
+                        <div style="padding: 15px; border-bottom: 1px solid #eee;">
+                            <div style="font-weight: bold; color: #333;" id="dropdownUsername">User</div>
+                            <div style="font-size: 12px; color: #666;" id="dropdownEmail">email@example.com</div>
+                        </div>
+                        <div id="updateProfileBtn" style="padding: 12px 15px; cursor: pointer; color: #333;">
+                            📷 Update Profile Picture
+                        </div>
+                        <div style="padding: 12px 15px; cursor: pointer; color: #333;">
+                            ⚙️ Settings
+                        </div>
+                    </div>
+                </div>
+
+                <a href="./index.html" class="cta-button" id="signOutBtn">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Welcome Back, <span id="userName">User</span>!</h1>
+        <p>Continue watching your favorite movies and series</p>
+    </div>
+
+    <!-- Genre Filter -->
+<div class="genre-filter" id="genreFilter"></div>
+
+<!-- Movies Section -->
+<div class="section">
+    <h2 id="sectionTitle">Popular Movies</h2>
+   <div class="movies-grid" id="moviesGrid">
+    <div class="d-flex justify-content-center mt-3" id="movieSpinner">
+        <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Movie Details Modal -->
+<div id="movieModal" class="modal-movie">
+    <div class="modal-content-movie">
+        <span class="close-movie">&times;</span>
+        <div class="modal-header">
+            <img id="modalBackdrop" class="modal-backdrop" src="" alt="">
+            <div class="modal-overlay">
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="modal-meta" id="modalMeta"></div>
+            <p class="modal-overview" id="modalOverview"></p>
+            <div class="modal-genres" id="modalGenres"></div>
+        </div>
+    </div>
+</div>
+
+    <!-- Profile Picture Modal -->
+    <div id="profileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:2000;">
+        <div style="background:white; margin:100px auto; padding:30px; width:90%; max-width:500px; border-radius:15px;">
+            <span class="close" style="float:right; font-size:30px; cursor:pointer; color:#333;">&times;</span>
+            <h2 style="color:#333; text-align:center;">Update Profile Picture</h2>
+            
+            <div id="profilePreview" style="width:150px; height:150px; margin:20px auto; border-radius:50%; border:3px solid #ddd; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#f5f5f5;">
+                <span style="font-size:60px; color:#ccc;">?</span>
+            </div>
+
+            <div style="text-align:center; margin:20px 0;">
+                <label for="profileImageInput" style="background:#007bff; color:white; padding:12px 30px; border-radius:25px; cursor:pointer; display:inline-block;">
+                    📷 Choose Image
+                </label>
+                <input type="file" id="profileImageInput" accept="image/*" style="display:none;">
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button id="saveProfilePic" style="background:#28a745; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Save</button>
+                <button id="removeProfilePic" style="background:#dc3545; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Remove</button>
+                <button id="cancelModal" style="background:#6c757d; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+<!-- Create Playlist Modal -->
+<div id="createPlaylistModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000;">
+    <div style="background:white; margin:150px auto; padding:30px; width:90%; max-width:400px; border-radius:15px;">
+        <h2 style="color:#333; margin-bottom: 20px;">Create New Playlist</h2>
+        
+        <input type="text" id="playlistName" placeholder="Playlist name (e.g., Action Movies)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:20px; box-sizing:border-box;">
+        
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+            <button id="cancelCreatePlaylist" style="background:#6c757d; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Cancel</button>
+            <button id="savePlaylist" style="background:#007bff; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Create</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Playlist Modal -->
+<div id="addToPlaylistModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000;">
+    <div style="background:white; margin:100px auto; padding:30px; width:90%; max-width:500px; border-radius:15px; max-height:600px; overflow-y:auto;">
+        <h2 style="color:#333; margin-bottom: 20px;">Add to Playlist</h2>
+        
+        <button id="createNewPlaylistBtn" style="width:100%; background:#28a745; color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; margin-bottom:20px; font-weight:bold;">
+            ➕ Create New Playlist
+        </button>
+        
+        <div id="playlistsList" style="margin-bottom:20px;">
+            <p style="color:#666; text-align:center;">Loading playlists...</p>
+        </div>
+        
+        <button id="closeAddToPlaylist" style="width:100%; background:#6c757d; color:white; padding:10px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Close</button>
+    </div>
+</div>
+
+</div>
+
+    <!-- PASTE SUBSCRIPTION MODAL HERE -->
+    <!-- Subscription Modal -->
+    <div id="subscriptionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; overflow-y:auto;">
+        <div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin:50px auto; padding:40px; width:90%; max-width:900px; border-radius:20px; color:white;">
+            <span id="closeSubscriptionModal" style="float:right; font-size:35px; cursor:pointer; color:white;">&times;</span>
+            
+            <h1 style="text-align:center; margin-bottom:15px; font-size:42px;">Choose Your Plan</h1>
+            <p style="text-align:center; margin-bottom:40px; font-size:18px; opacity:0.9;">Unlock unlimited movies and exclusive features</p>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:25px;">
+                
+                <!-- Basic Plan -->
+                <div style="background:rgba(255,255,255,0.15); padding:30px; border-radius:15px; text-align:center; backdrop-filter:blur(10px); border:2px solid rgba(255,255,255,0.2);">
+                    <h2 style="font-size:28px; margin-bottom:10px;">Basic</h2>
+                    <div style="font-size:48px; font-weight:bold; margin:20px 0;">$9<span style="font-size:20px;">/mo</span></div>
+                    <ul style="list-style:none; padding:0; margin:25px 0; text-align:left;">
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ Access to all movies</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ HD Quality</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ 1 Device</li>
+                        <li style="padding:8px 0;">✓ Create Playlists</li>
+                    </ul>
+                    <button onclick="subscribe('basic', 9)" style="width:100%; background:#ffd700; color:#333; padding:15px; border:none; border-radius:30px; font-size:18px; font-weight:bold; cursor:pointer; margin-top:20px;">
+                        Subscribe Now
+                    </button>
+                </div>
+                
+                <!-- Standard Plan (Popular) -->
+                <div style="background:rgba(255,215,0,0.25); padding:30px; border-radius:15px; text-align:center; backdrop-filter:blur(10px); border:3px solid #ffd700; position:relative;">
+                    <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:#ffd700; color:#333; padding:5px 20px; border-radius:20px; font-weight:bold; font-size:14px;">
+                        POPULAR
+                    </div>
+                    <h2 style="font-size:28px; margin-bottom:10px; margin-top:10px;">Standard</h2>
+                    <div style="font-size:48px; font-weight:bold; margin:20px 0;">$15<span style="font-size:20px;">/mo</span></div>
+                    <ul style="list-style:none; padding:0; margin:25px 0; text-align:left;">
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ Everything in Basic</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ Full HD Quality</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ 2 Devices</li>
+                        <li style="padding:8px 0;">✓ Offline Downloads</li>
+                    </ul>
+                    <button onclick="subscribe('standard', 15)" style="width:100%; background:#ffd700; color:#333; padding:15px; border:none; border-radius:30px; font-size:18px; font-weight:bold; cursor:pointer; margin-top:20px;">
+                        Subscribe Now
+                    </button>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div style="background:rgba(255,255,255,0.15); padding:30px; border-radius:15px; text-align:center; backdrop-filter:blur(10px); border:2px solid rgba(255,255,255,0.2);">
+                    <h2 style="font-size:28px; margin-bottom:10px;">Premium</h2>
+                    <div style="font-size:48px; font-weight:bold; margin:20px 0;">$25<span style="font-size:20px;">/mo</span></div>
+                    <ul style="list-style:none; padding:0; margin:25px 0; text-align:left;">
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ Everything in Standard</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ 4K Ultra HD</li>
+                        <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.2);">✓ 4 Devices</li>
+                        <li style="padding:8px 0;">✓ Early Access to New Movies</li>
+                    </ul>
+                    <button onclick="subscribe('premium', 25)" style="width:100%; background:#ffd700; color:#333; padding:15px; border:none; border-radius:30px; font-size:18px; font-weight:bold; cursor:pointer; margin-top:20px;">
+                        Subscribe Now
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="module" src="./dashboard.js"></script>
+
+</html>

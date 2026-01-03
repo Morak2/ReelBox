@@ -1,0 +1,398 @@
+body {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIo9KTuQVx5juZCedJq0dSmvxEUo7pBXJIaw&s);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.signin-div {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.content {
+  width: 100%;
+  max-width: 450px;
+  padding: 50px 40px;
+  background: rgba(231, 224, 221, 0.95);
+  border-radius: 20px;
+  box-shadow: -3px -3px 7px rgba(255, 255, 255, 0.45),
+    2px 2px 5px rgba(94, 104, 121, 0.288);
+  backdrop-filter: blur(10px);
+}
+
+.content .text {
+  font-size: 37px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #00d4ff;
+  text-align: center;
+}
+
+.signin-p {
+  font-size: 18px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.field {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-bottom: 25px; /* Increased spacing */
+}
+
+.field .input {
+  height: 100%;
+  width: 100%;
+  padding-left: 45px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  background: #dde1e7;
+  color: #595959;
+  border-radius: 25px;
+  box-shadow: inset 2px 2px 5px #BABECC,
+    inset -5px -5px 10px rgba(255, 255, 255, 0.45);
+  transition: box-shadow 0.3s ease;
+}
+
+.field .input:focus {
+  box-shadow: inset 1px 1px 2px #BABECC,
+    inset -1px -1px 2px rgba(255, 255, 255, 0.45);
+}
+.field .span {
+  position: absolute;
+  color: #595959;
+  width: 50px;
+  height: 50px;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.field .label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 45px;
+  pointer-events: none;
+  color: #595959;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.field .input:focus ~ .label,
+.field .input:valid ~ .label {
+  opacity: 0;
+}
+
+.forgot-pass {
+  text-align: right;
+  margin: -10px 0 20px 0; /* More space below */
+  display: block;
+  clear: both;
+}
+
+.forgot-pass a {
+  font-size: 15px;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-pass a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.button {
+  margin: 20px 0 15px 0;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 50px;
+  font-weight: 600;
+  background: #dde1e7;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #595959;
+  box-shadow: 2px 2px 5px #BABECC,
+    -5px -5px 10px rgba(255, 255, 255, 0.45);
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #d0d4db;
+}
+
+.button:active,
+.button:focus {
+  color: #3498db;
+  box-shadow: inset 2px 2px 5px #BABECC,
+    inset -5px -5px 10px rgba(255, 255, 255, 0.45);
+}
+
+.sign-up {
+  margin: 20px 0 0 0;
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+}
+
+.sign-up a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.sign-up a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  background: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  font-weight: 500;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.error {
+  background: #f44336;
+}
+
+/* Error message styling */
+#errorMessage {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* ==================== RESPONSIVE SIGN IN PAGE ==================== */
+
+/* Tablet and below (768px) */
+@media (max-width: 768px) {
+  .signin-div {
+    padding: 15px;
+  }
+
+  .content {
+    padding: 40px 30px;
+    max-width: 100%;
+  }
+
+  .text {
+    font-size: 32px;
+  }
+
+  .signin-p {
+    font-size: 16px;
+  }
+
+  .field .input {
+    font-size: 15px;
+  }
+
+  .button {
+    font-size: 16px;
+  }
+
+  .forgot-pass a {
+    font-size: 14px;
+  }
+
+  .sign-up {
+    font-size: 14px;
+  }
+}
+
+/* Mobile (576px) */
+@media (max-width: 576px) {
+  .signin-div {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 30px 20px;
+    border-radius: 15px;
+  }
+
+  .text {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .signin-p {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  #errorMessage {
+    padding: 10px;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+    height: 48px;
+  }
+
+  .field .input {
+    font-size: 14px;
+    padding-left: 45px;
+  }
+
+  .field .span {
+    width: 45px;
+  }
+
+  .field .span svg {
+    width: 35px;
+    height: 18px;
+  }
+
+  .field .label {
+    font-size: 13px;
+    left: 45px;
+  }
+
+  .button {
+    height: 48px;
+    line-height: 48px;
+    font-size: 16px;
+    margin: 15px 0;
+  }
+
+  .forgot-pass {
+    margin: -5px 0 15px 0;
+  }
+
+  .forgot-pass a {
+    font-size: 13px;
+  }
+
+  .sign-up {
+    font-size: 13px;
+    margin-top: 15px;
+  }
+}
+
+/* Very small mobile (400px) */
+@media (max-width: 400px) {
+  .content {
+    padding: 25px 15px;
+  }
+
+  .text {
+    font-size: 24px;
+  }
+
+  .signin-p {
+    font-size: 13px;
+  }
+
+  .field {
+    height: 45px;
+  }
+
+  .field .input {
+    font-size: 13px;
+    padding-left: 40px;
+  }
+
+  .field .span {
+    width: 40px;
+  }
+
+  .field .span svg {
+    width: 30px;
+    height: 16px;
+  }
+
+  .field .label {
+    left: 40px;
+    font-size: 12px;
+  }
+
+  .button {
+    height: 45px;
+    line-height: 45px;
+    font-size: 15px;
+  }
+}
+
+/* Landscape mode for phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .signin-div {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 20px 30px;
+    margin: 10px auto;
+  }
+
+  .text {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .signin-p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .field {
+    margin-bottom: 15px;
+    height: 45px;
+  }
+
+  .button {
+    height: 45px;
+    line-height: 45px;
+    margin: 10px 0;
+  }
+
+  .forgot-pass {
+    margin: -5px 0 10px 0;
+  }
+
+  .sign-up {
+    margin-top: 10px;
+  }
+}
