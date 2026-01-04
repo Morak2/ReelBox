@@ -24,16 +24,22 @@ html {
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            @media (max-width: 576px) {
+    nav {
+        padding: 0 15px;
+    }
+}
         }
         
         .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px; 
+    padding: 15px 0;
+}
         
         .logo {
             font-size: 32px;
@@ -1074,5 +1080,112 @@ html {
     
     .movie-card {
         break-inside: avoid;
+    }
+}
+
+@media (max-width: 576px) {
+    #profileDropdown {
+        right: 0;
+        left: auto;
+        min-width: 180px;
+    }
+}
+@media (max-width: 768px) {
+    /* ...existing styles... */
+    
+    .nav-container > div:last-child {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    .search-bar {
+        order: 4;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .cta-button, #signOutBtn {
+        font-size: 13px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    /* ...existing styles... */
+    
+    .movies-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        gap: 20px;
+    }
+    
+    .movie-poster {
+        height: 350px; /* Taller for single column */
+    }
+}
+
+/* ==================== MOBILE OPTIMIZATIONS ==================== */
+
+/* Better touch targets */
+@media (max-width: 768px) {
+    button, .cta-button, .watchlist-btn, .nav-links a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Better modal sizing */
+    .modal-content-movie,
+    #profileModal > div,
+    #createPlaylistModal > div,
+    #addToPlaylistModal > div,
+    #subscriptionModal > div {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+    
+    /* Stack profile actions vertically */
+    .nav-container > div:last-child {
+        gap: 10px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .logo {
+        font-size: 20px;
+    }
+    
+    .nav-links a {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+    
+    .hero h1 {
+        font-size: 22px;
+    }
+    
+    .cta-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Landscape phones */
+@media (max-height: 600px) and (orientation: landscape) {
+    .nav-container {
+        min-height: 60px;
+    }
+    
+    .hero {
+        padding: 40px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
     }
 }
